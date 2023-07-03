@@ -1,8 +1,13 @@
-use bevy::prelude::*;
+use bevy::{
+    prelude::*,
+    reflect::TypeUuid,
+    render::render_resource::{AsBindGroup, ShaderRef},
+};
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
+        .add_plugin(MaterialPlugin::<CustomMaterial>::default())
         .add_startup_system(setup)
         .run();
 }
@@ -12,6 +17,7 @@ fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut custom_materials: ResMut<Assets<CustomMaterial>>,
 ) {
     // plane
     commands.spawn(PbrBundle {
@@ -20,10 +26,13 @@ fn setup(
         ..default()
     });
     // cube
-    commands.spawn(PbrBundle {
+    commands.spawn(MaterialMeshBundle {
         mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
-        material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
         transform: Transform::from_xyz(0.0, 0.5, 0.0),
+        material: custom_materials.add(CustomMaterial {
+            color: Color::BLUE,
+            alpha_mode: AlphaMode::Opaque,
+        }),
         ..default()
     });
     // light
@@ -41,4 +50,23 @@ fn setup(
         transform: Transform::from_xyz(-2.0, 2.5, 5.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
     });
+}
+
+impl Material for CustomMaterial {
+    fn fragment_shader() -> ShaderRef {
+        "shaders/custom_material.wgsl".into()
+    }
+
+    fn alpha_mode(&self) -> AlphaMode {
+        self.alpha_mode
+    }
+}
+
+// This is the struct that will be passed to your shader
+#[derive(AsBindGroup, TypeUuid, Debug, Clone)]
+#[uuid = "f690fdae-d598-45ab-8225-97e2a3f056e0"]
+pub struct CustomMaterial {
+    #[uniform(0)]
+    color: Color,
+    alpha_mode: AlphaMode,
 }
