@@ -1,1 +1,3 @@
+.vscode
 /target
+assets/shaders/*.spv

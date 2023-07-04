@@ -8,8 +8,12 @@ edition = "2021"
 [dependencies]
 bevy = "0.10.1"
 
+[build-dependencies]
+spirv-builder = "0.8"
+
 [workspace]
 resolver = "2" # wgpu/Bevy needs this
+members = ["shaders/*"]
 
 [profile.dev]
 opt-level = 1
