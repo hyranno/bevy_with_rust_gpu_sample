@@ -1,7 +1,15 @@
 use bevy::{
     prelude::*,
     reflect::TypeUuid,
-    render::render_resource::{AsBindGroup, ShaderRef},
+    render::{
+        render_resource::{
+            AsBindGroup, ShaderRef, RenderPipelineDescriptor, SpecializedMeshPipelineError,
+        },
+        mesh::MeshVertexBufferLayout,
+    },
+    pbr::{
+        MaterialPipeline, MaterialPipelineKey,
+    }
 };
 
 fn main() {
@@ -54,11 +62,21 @@ fn setup(
 
 impl Material for CustomMaterial {
     fn fragment_shader() -> ShaderRef {
-        "shaders/custom_material.wgsl".into()
+        "shaders/custom_material.spv".into()
     }
 
     fn alpha_mode(&self) -> AlphaMode {
         self.alpha_mode
+    }
+
+    fn specialize(
+        _pipeline: &MaterialPipeline<Self>,
+        descriptor: &mut RenderPipelineDescriptor,
+        _layout: &MeshVertexBufferLayout,
+        _key: MaterialPipelineKey<Self>,
+    ) -> Result<(), SpecializedMeshPipelineError> {
+        descriptor.fragment.as_mut().unwrap().entry_point = "main_fs".into();
+        Ok(())
     }
 }
 
