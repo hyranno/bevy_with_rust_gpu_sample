@@ -1,5 +1,9 @@
 # BevyでRustGPUを使いたい(WIP)
-Bevy 0.10.1では[spirvの読み込みに難がある](https://github.com/bevyengine/bevy/pull/7772)のでもう少し待つ。
+現状エラーで動いてないです
+spirv-optのremove-unused-interface-variables passが走っているかも
+    https://github.com/EmbarkStudios/spirv-tools-rs/blob/main/src/opt/tool.rs
+    -O, -Os, --legalize-hlsl には含まれていないはず
+ShaderRefには対応していない
 
 [bevy-rust-gpu](https://github.com/Bevy-Rust-GPU/bevy-rust-gpu)もあるけどボイラープレート量がどうだろう。
 
