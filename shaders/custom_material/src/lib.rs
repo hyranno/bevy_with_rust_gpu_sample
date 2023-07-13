@@ -1,9 +1,23 @@
 #![no_std]
 
 use spirv_std::spirv;
-use spirv_std::glam::{vec4, Vec4};
+use spirv_std::glam::{Vec4, Vec3, Vec2};
+
+pub struct CustomMaterial {
+    pub color: Vec4,
+}
 
 #[spirv(fragment)]
-pub fn main_fs(output: &mut Vec4) {
-    *output = vec4(1.0, 0.0, 0.0, 1.0);
+#[allow(unused_variables)]
+pub fn main_fs(
+    #[spirv(position)] position: Vec4,
+    #[spirv(uniform, descriptor_set=1, binding=0)] material: &CustomMaterial,
+    world_position: Vec4,
+    world_normal: Vec3,
+    uv: Vec2,
+    world_tangent: Vec4,
+    color: Vec4,
+    output: &mut Vec4
+) {
+    *output = material.color
 }
