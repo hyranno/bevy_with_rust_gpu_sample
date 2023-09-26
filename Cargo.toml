@@ -9,7 +9,7 @@ edition = "2021"
 bevy = {version = "0.11", features=["shader_format_spirv"]}
 
 [build-dependencies]
-spirv-builder = "0.8"
+spirv-builder = "0.9"
 
 [workspace]
 resolver = "2" # wgpu/Bevy needs this
