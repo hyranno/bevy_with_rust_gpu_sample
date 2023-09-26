@@ -75,7 +75,9 @@ impl Material for CustomMaterial {
         _layout: &MeshVertexBufferLayout,
         _key: MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
-        descriptor.fragment.as_mut().unwrap().entry_point = "main_fs".into();
+        if let Some(fragment) = descriptor.fragment.as_mut() {
+            fragment.entry_point = "main_fs".into();
+        }
         Ok(())
     }
 }

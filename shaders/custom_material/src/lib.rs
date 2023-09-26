@@ -19,5 +19,6 @@ pub fn main_fs(
     color: Vec4,
     output: &mut Vec4
 ) {
-    *output = material.color
+    let consume = 1.0 + (world_position.x + world_normal.x + uv.x).clamp(0.0, 0.0);
+    *output = material.color * consume
 }

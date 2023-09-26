@@ -2,7 +2,7 @@ use std::{fs, path::PathBuf};
 use spirv_builder::{MetadataPrintout, SpirvBuilder, ModuleResult};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let target = "spirv-unknown-spv1.4";
+    let target = "spirv-unknown-spv1.5";   // webgpu0
     let shaders_dir: PathBuf = [std::env::var("CARGO_MANIFEST_DIR")?, String::from("assets/shaders/")].iter().collect();
     fn copy_spv(src: &PathBuf, dest_dir: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
         let dest: PathBuf = [dest_dir, &PathBuf::from(src.file_name().unwrap())].iter().collect();
