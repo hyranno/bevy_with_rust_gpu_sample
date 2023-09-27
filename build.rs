@@ -14,6 +14,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let built_shader = SpirvBuilder::new(shader_crate, target)
         .print_metadata(MetadataPrintout::Full)
         .preserve_bindings(true)
+        // .spirv_metadata(spirv_builder::SpirvMetadata::Full) // for debug
         .build()?;
     match built_shader.module {
         ModuleResult::SingleModule(path) => copy_spv(&path, &shaders_dir)?,

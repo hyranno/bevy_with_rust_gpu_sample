@@ -1,11 +1,8 @@
 # BevyでRustGPUを使いたい(WIP)
-現状エラーで動いてないです
-spirv-optのremove-unused-interface-variables passが走っているかも
-    https://github.com/EmbarkStudios/spirv-tools-rs/blob/main/src/opt/tool.rs
-    -O, -Os, --legalize-hlsl には含まれていないはず
+
 ShaderRefには対応していない
 
-[bevy-rust-gpu](https://github.com/Bevy-Rust-GPU/bevy-rust-gpu)もあるけどボイラープレート量がどうだろう。
+[bevy-rust-gpu](https://github.com/Bevy-Rust-GPU/bevy-rust-gpu)もあるけどボイラープレート量や更新頻度がどうだろう。
 
 Bevyはバックエンドにwgpuを使っている。
 wgpuが実装する規格WebGPUはgeometryやtessellationには対応していない。
