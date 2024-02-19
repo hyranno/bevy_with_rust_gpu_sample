@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bevy = {version = "0.12", features=["shader_format_spirv"]}
+bevy = {version = "0.13", features=["shader_format_spirv"]}
 
 [build-dependencies]
 shader_builder = {path = "../shader_builder"}
